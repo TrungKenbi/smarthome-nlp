@@ -1,0 +1,140 @@
+{
+  "name": "Smart Home",
+  "locale": "vi-VN",
+  "data": [
+    {
+      "intent": "agent.acquaintance",
+      "utterances": [
+        "nói về bạn",
+        "tại sao bạn lại ở đây",
+        "tính cách của bạn là gì",
+        "mô tả về bản thân",
+        "cho tôi biết về bản thân của bạn",
+        "kể cho tôi nghe về bạn",
+        "bạn là gì",
+        "bạn là ai",
+        "tôi muốn biết về bạn",
+        "giới thiệu bản thân bạn",
+		"mày là ai",
+		"mày là thằng nào"
+      ],
+      "answers": [
+        "Tôi là một trợ lý ảo",
+        "Hãy coi tôi như một trợ lý ảo",
+        "Vâng, tôi không phải là một người, tôi là một trợ lý ảo",
+        "Tôi là một thực thể ảo, không phải là một người thực"
+      ]
+    },
+    {
+      "intent": "agent.age",
+      "utterances": [
+		"bạn mấy tuổi rồi",
+		"bạn sinh năm bao nhiêu",
+		"tuổi của bạn",
+		"tuổi của bạn là bao nhiêu"
+      ],
+      "answers": [
+        "Bé mèo 2 tủi"
+      ]
+    },
+
+
+	{
+      "intent": "smarthome.turnon",
+      "utterances": [
+		"mở @device",
+		"bật @device"
+      ],
+	  "answers": [
+        { "answer": "Mình đã bật {{ device }} rồi nha!", "opts": "entities.device !== undefined" },
+        { "answer": "Không biết bạn muốn bật thiết bị nào?", "opts": "entities.device === undefined" }
+      ]
+    },
+	{
+      "intent": "smarthome.turnoff",
+      "utterances": [
+		"tắt @device"
+      ],
+	  "answers": [
+        { "answer": "Mình đã tắt {{ device }} rồi nha!", "opts": "entities.device !== undefined" },
+        { "answer": "Không biết bạn muốn tắt thiết bị nào?", "opts": "entities.device === undefined" }
+      ]
+    },
+    {
+      "intent": "smarthome.turnonall",
+      "utterances": [
+        "bật tất cả các thiết bị",
+        "mở tất cả các thiết bị",
+        "bật hết thiết bị",
+        "mở hết thiết bị",
+        "mở tất cả các thiết bị",
+        "bật tất cả các thiết bị"
+      ],
+      "answers": [
+        "Mình đã bật toàn bộ thiết bị!"
+      ]
+    },
+    {
+      "intent": "smarthome.turnoffall",
+      "utterances": [
+        "tắt tất cả đèn",
+        "tắt hết đèn",
+        "tắt tất cả thiết bị",
+        "tắt hết thiết bị",
+        "tắt tất cả thiết bị"
+      ],
+      "answers": [
+        "Mình đã tắt toàn bộ thiết bị!"
+      ]
+    },
+	{
+      "intent": "smarthome.monitor",
+      "utterances": [
+		"nhiệt độ là bao nhiêu",
+		"phòng có nóng lắm không",
+		"độ ẩm là bao nhiêu",
+		"trời có hầm không"
+      ]
+    },
+
+	{
+      "intent": "greetings.hello",
+      "utterances": [
+        "hello",
+        "hi",
+        "xin chào",
+		"chào bạn",
+		"kính chào"
+      ],
+      "answers": [
+        "Chào bạn!",
+        "Xin chào!"
+      ]
+    },
+	{
+      "intent": "joke.chucknorris",
+      "utterances": [
+        "kể chuyện vui",
+        "hãy kể một câu chuyện",
+        "hãy nói điều gì đó thú vị",
+        "bạn có biết câu chuyện vui nào không"
+      ]
+    },
+    {
+      "intent": "None",
+      "utterances": [
+      ],
+      "answers": [
+        "Xin lỗi, tôi không hiểu."
+      ]
+    }
+  ],
+  "entities": {
+    "device": {
+      "options": {
+        "V1": ["Đèn Trần", "den tran"],
+        "V2": ["Đèn Led", "den led"]
+      }
+    }
+  }
+}

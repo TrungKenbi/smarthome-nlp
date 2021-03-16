@@ -1,0 +1,40 @@
+{
+  "settings": {
+    "nlp": {
+      "languages": [
+        "vi-VN"
+      ],
+      "trainByDomain": false,
+      "threshold": 0.5,
+      "autoLoad": false,
+      "autoSave": false,
+      "modelFileName": "model.nlp",
+      "corpora": [
+        "./corpus.json"
+      ]
+    },
+    "ner": {
+      "threshold": 1
+    },
+    "console": {
+      "debug": true
+    },
+    "api-server": {
+      "port": 3000,
+      "serveBot": true
+    }
+  },
+  "use": [
+    "Basic",
+    "ConsoleConnector",
+    "ExpressApiServer",
+    {
+      "className": "ApiConnector",
+      "path": "nlpjs-custom/api-connector"
+    },
+    {
+      "className": "ExpressApiServer",
+      "path": "nlpjs-custom/express-api-server"
+    }
+  ]
+}
