@@ -96,6 +96,13 @@ class ApiConnector extends Connector {
                                 });
                             answer = `Phòng đang có nhiệt độ là ${parseInt(labels[1].value)}°C và độ ẩm là ${parseInt(labels[0].value)}%`;
                             break;
+						case 'smarthome.time':
+                            // Command view time
+							let date_ob = new Date();
+							let hours = date_ob.getHours();
+							let minutes = date_ob.getMinutes();
+                            answer = `Bây giờ là ${hours} giờ ${minutes} phút`;
+                            break;
                     }
                 }
 				
@@ -106,13 +113,14 @@ class ApiConnector extends Connector {
 					let gtts = new gTTS(answer, 'vi');
 					gtts.save(path, function (err, result) { 
 						if(err) { throw new Error(err); } 
-						console.log("Text to speech converted: " + answer); 
+						console.log("Text to speech converted: " + answer);
+						return res.send({answer: answer, voice: voiceLink});
 					});
+				} else {
+					return res.send({answer: answer, voice: voiceLink});
 				}
-
-                return res.send({answer: answer, voice: voiceLink});
-            }
-            return res.send();
+            } else
+				return res.send();
         });
     }
 

@@ -96,6 +96,13 @@
 		"trời có hầm không"
       ]
     },
+	{
+      "intent": "smarthome.time",
+      "utterances": [
+		"bây giờ là mấy giờ",
+		"mấy giờ rồi",
+      ]
+    },
 
 	{
       "intent": "greetings.hello",
