@@ -112,6 +112,17 @@
       ]
     },
 	{
+      "intent": "greetings.alo",
+      "utterances": [
+		"alo",
+		"alo alo"
+      ],
+      "answers": [
+        "Mình đang nghe đây!"
+      ]
+    },
+	
+	{
       "intent": "joke.chucknorris",
       "utterances": [
         "kể chuyện vui",
