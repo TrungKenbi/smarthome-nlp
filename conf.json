@@ -20,8 +20,9 @@
       "debug": true
     },
     "api-server": {
-      "port": 3000,
-      "serveBot": true
+      "port": 3001,
+      "serveBot": true,
+	  "clientPath": "public"
     }
   },
   "use": [

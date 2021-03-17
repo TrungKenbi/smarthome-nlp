@@ -1,14 +1,14 @@
 {
   "name": "smarthome-nlp",
   "version": "1.0.0",
-  "description": "Example made to facilitate understanding on how to integrate Facebook with @nlp.js",
+  "description": "NLP",
   "main": "index.js",
   "scripts": {
     "start": "node -r dotenv/config index.js",
     "test": "echo \"Error: no test specified\" && exit 0"
   },
   "keywords": [],
-  "author": "Eric Lara <ericzon@gmail.com>",
+  "author": "TrungKenbi",
   "license": "MIT",
   "dependencies": {
     "@nlpjs/basic": "^4.21.3",
@@ -17,6 +17,8 @@
     "@nlpjs/fb-connector": "^4.21.1",
     "axios": "^0.21.1",
     "dotenv": "^8.2.0",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "gtts": "^0.2.1",
+    "md5": "^2.3.0"
   }
 }

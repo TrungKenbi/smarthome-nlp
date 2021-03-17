@@ -1,6 +1,9 @@
 const {containerBootstrap} = require('@nlpjs/core');
 const {Connector} = require('@nlpjs/connector');
 const axios = require('axios');
+const gTTS = require('gtts');
+const md5 = require('md5');
+const fs = require('fs')
 
 const ENDPOINT = require('./settings');
 const SH = axios.create({
@@ -92,8 +95,19 @@ class ApiConnector extends Connector {
                             break;
                     }
                 }
+				
+				let filename = `voice-data/${md5(answer)}.mp3`;
+				let path = `public/${filename}`;
+				let voiceLink = `http://localhost:3001/${filename}`;
+				if (!fs.existsSync(path)) {
+					let gtts = new gTTS(answer, 'vi');
+					gtts.save(path, function (err, result) { 
+						if(err) { throw new Error(err); } 
+						console.log("Text to speech converted!"); 
+					});
+				}
 
-                return res.send({answer: answer})
+                return res.send({answer: answer, voice: voiceLink});
             }
             return res.send();
         });
