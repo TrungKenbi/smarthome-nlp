@@ -3,17 +3,21 @@ const {Connector} = require('@nlpjs/connector');
 const axios = require('axios');
 const gTTS = require('gtts');
 const md5 = require('md5');
-const fs = require('fs')
+const fs = require('fs');
+const https = require('https');
 
-const ENDPOINT = require('./settings');
+const SETTINGS = require('./settings');
+
 const SH = axios.create({
-    baseURL: ENDPOINT.ENDPOINT_SMART_HOME,
+    baseURL: SETTINGS.ENDPOINT_SMART_HOME,
 });
 
 const SERVER = process.env.SERVER || 'localhost';
 const PORT = process.env.PORT || 3000;
+const SPEECH_SERVER = process.env.SPEECH_SERVER || 'GOOGLE';
 
 const isEmpty = (value) => !value || value === '';
+const httpsAgent = new https.Agent({ rejectUnauthorized: false });
 
 class ApiConnector extends Connector {
     constructor(settings = {}, container = undefined) {
@@ -105,20 +109,63 @@ class ApiConnector extends Connector {
                             break;
                     }
                 }
-				
-				let filename = `voice-data/${md5(answer)}.mp3`;
-				let path = `public/${filename}`;
-				let voiceLink = `http://${SERVER}:${PORT}/${filename}`;
-				if (!fs.existsSync(path)) {
-					let gtts = new gTTS(answer, 'vi');
-					gtts.save(path, function (err, result) { 
-						if(err) { throw new Error(err); } 
-						console.log("Text to speech converted: " + answer);
-						return res.send({answer: answer, voice: voiceLink});
-					});
-				} else {
-					return res.send({answer: answer, voice: voiceLink});
-				}
+
+                let filename = `voice-data/${SPEECH_SERVER.toLowerCase()}_${md5(answer)}.mp3`;
+                let path = `public/${filename}`;
+                let voiceLink = `http://${SERVER}:${PORT}/${filename}`;
+                if (!fs.existsSync(path)) {
+                    switch (`${SPEECH_SERVER}`) {
+                        case 'GOOGLE':
+                            let gtts = new gTTS(answer, 'vi');
+                            gtts.save(path, function (err, result) {
+                                if(err) { throw new Error(err); }
+                                console.log("Text to speech converted: " + answer);
+                                return res.send({answer: answer, voice: voiceLink});
+                            });
+                            break;
+                        case 'VIETTEL':
+                            let data = {
+                                text: answer,
+                                voice: "hn-quynhanh",
+                                id: "2",
+                                without_filter: false,
+                                speed: 1,
+                                tts_return_option: 3
+                            };
+
+                            let config = {
+                                method: 'post',
+                                url: SETTINGS.ENDPOINT_TTS_VIETTEL,
+                                headers: {
+                                    'token': SETTINGS.API_KEY_VIETTEL,
+                                    'Content-Type': 'application/json'
+                                },
+                                data : JSON.stringify(data),
+                                httpsAgent: httpsAgent,
+                                responseType: 'stream'
+                            };
+
+
+                            axios(config)
+                                .then(function (response) {
+                                    let writer = fs.createWriteStream(path)
+                                    response.data.pipe(writer);
+                                    writer.on('finish', () => {
+                                        console.log("Text to speech converted: " + answer);
+                                        return res.send({answer: answer, voice: voiceLink});
+                                    })
+                                    writer.on('error', err => {return res.send({error: true})});
+                                })
+                                .catch(function (error) {
+                                    console.log(error);
+                                    return res.send({error: true});
+                                });
+
+                            break;
+                    }
+                } else {
+                    return res.send({answer: answer, voice: voiceLink});
+                }
             } else
 				return res.send();
         });
