@@ -10,6 +10,9 @@ const SH = axios.create({
     baseURL: ENDPOINT.ENDPOINT_SMART_HOME,
 });
 
+const SERVER = process.env.SERVER || 'localhost';
+const PORT = process.env.PORT || 3000;
+
 const isEmpty = (value) => !value || value === '';
 
 class ApiConnector extends Connector {
@@ -98,7 +101,7 @@ class ApiConnector extends Connector {
 				
 				let filename = `voice-data/${md5(answer)}.mp3`;
 				let path = `public/${filename}`;
-				let voiceLink = `http://localhost:3001/${filename}`;
+				let voiceLink = `://${SERVER}:${PORT}/${filename}`;
 				if (!fs.existsSync(path)) {
 					let gtts = new gTTS(answer, 'vi');
 					gtts.save(path, function (err, result) { 
