@@ -4,4 +4,4 @@ npm-debug.log
 .DS_Store
 .vscode
 cards
-public/voice-data
+public/voice-data/*
