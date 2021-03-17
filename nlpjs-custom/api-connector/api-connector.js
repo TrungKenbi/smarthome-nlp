@@ -101,7 +101,7 @@ class ApiConnector extends Connector {
 				
 				let filename = `voice-data/${md5(answer)}.mp3`;
 				let path = `public/${filename}`;
-				let voiceLink = `://${SERVER}:${PORT}/${filename}`;
+				let voiceLink = `http://${SERVER}:${PORT}/${filename}`;
 				if (!fs.existsSync(path)) {
 					let gtts = new gTTS(answer, 'vi');
 					gtts.save(path, function (err, result) { 
