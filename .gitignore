@@ -5,4 +5,5 @@ npm-debug.log
 .vscode
 cards
 public/voice-data/*
-!public/voice-data/.gitkeep 
+!public/voice-data/.gitkeep
+.env

@@ -103,7 +103,7 @@ class ApiConnector extends Connector {
 					let gtts = new gTTS(answer, 'vi');
 					gtts.save(path, function (err, result) { 
 						if(err) { throw new Error(err); } 
-						console.log("Text to speech converted!"); 
+						console.log("Text to speech converted: " + answer); 
 					});
 				}
 

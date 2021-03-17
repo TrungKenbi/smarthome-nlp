@@ -5,7 +5,7 @@ const ExpressApiApp = require('./express-api-app');
 class ExpressApiServer extends nlpjs.ExpressApiServer {
   async start(input = {}) {
     this.server = null;
-    const port = input.port || this.settings.port;
+    const port = input.port || this.settings.port || process.env.PORT;
     const expressApp = new ExpressApiApp(this.settings, this.plugins, this.routers);
     this.app = expressApp.initialize();
 
