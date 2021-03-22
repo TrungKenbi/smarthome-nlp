@@ -130,6 +130,17 @@
     },
 	
 	{
+      "intent": "friends.hieu",
+      "utterances": [
+		"hiếu là thằng nào",
+		"bạn hiếu là ai"
+      ],
+      "answers": [
+        "Hiếu XNXX là một người bạn thiện lành của bạn Trung"
+      ]
+    },
+	
+	{
       "intent": "joke.chucknorris",
       "utterances": [
         "kể chuyện vui",
